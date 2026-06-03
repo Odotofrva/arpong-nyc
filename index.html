@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AR Pong NYC - V1 |. OdotNYC</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <section id="scanScreen" class="screen active">
+      <div class="poster-card">
+        <div class="brand">RoboTechi</div>
+        <h1>RT-PONG</h1>
+        <p class="subtitle">Point your phone to begin a game of RT-PONG</p>
+
+        <div class="marker-frame">
+          <div class="marker-corner tl"></div>
+          <div class="marker-corner tr"></div>
+          <div class="marker-corner bl"></div>
+          <div class="marker-corner br"></div>
+          <div class="scan-line"></div>
+          <span>MARKER SCAN AREA</span>
+        </div>
+
+        <button id="scanBtn" class="primary-btn">Simulate Marker Scan</button>
+        <p class="small-note">V1 prototype | Powered by: RoboTechi Co.</p>
+      </div>
+    </section>
+
+    <section id="startScreen" class="screen">
+      <div class="hud-card">
+        <p class="brand">Marker Found</p>
+        <h2>PRESS START</h2>
+        <p>Drag your finger or mouse vertically to control your paddle.</p>
+        <button id="startBtn" class="primary-btn">Start Game</button>
+      </div>
+    </section>
+
+    <section id="gameScreen" class="screen">
+      <div class="game-wrap">
+        <div class="topbar">
+          <span>YOU: <strong id="playerScore">0</strong></span>
+          <span class="title-pill">RT-PONG v1</span>
+          <span>CPU: <strong id="cpuScore">0</strong></span>
+        </div>
+        <div id="cpuBubble" class="cpu-bubble" aria-live="polite">You can't touch this!</div>
+        <canvas id="pongCanvas" width="900" height="520"></canvas>
+        <p class="controls-note">Touch/drag up and down. First to 5 wins. Enjoy! - OdotNYC (Founder: RoboTechi)</p>
+      </div>
+    </section>
+
+    <section id="endScreen" class="screen">
+      <div class="hud-card">
+        <p class="brand">Game Over!</p>
+        <h2 id="winnerText">You Win!</h2>
+        <button id="playAgainBtn" class="primary-btn">Play Again</button>
+        <button id="rescanBtn" class="ghost-btn">Scan Marker Again</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
