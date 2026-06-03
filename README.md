@@ -1,23 +1,46 @@
-# AR Pong NYC - Version 1
+# AR Pong NYC v1.3 - Real Marker Upgrade
 
-This is the first playable prototype for a marker-based AR Pong art/gaming installation.
+This version is ready for a real marker-tracking workflow using MindAR.
 
-## What this version includes
+## Where to place the marker files
 
-- Marker scan simulation screen
-- PRESS START screen
-- Playable Pong game
-- Player vs computer AI paddle
-- Mobile touch controls
-- Mouse controls for desktop testing
-- First-to-5 scoring
-- NYC cyber/installation-style UI
+Your uploaded marker image is already placed here:
 
-## How to run
+```text
+assets/targets/arpongmarker.png
+```
 
-Open `index.html` in a browser.
+For real AR scanning, convert that PNG into a MindAR target file and save it here:
 
-For best local testing, run a small local server:
+```text
+assets/targets/marker.mind
+```
+
+The code already looks for that exact file path.
+
+## How to create marker.mind
+
+1. Open the MindAR Image Target Compiler.
+2. Upload `assets/targets/arpongmarker.png`.
+3. Compile/download the target file.
+4. Rename the downloaded file to `marker.mind`.
+5. Place it in `assets/targets/`.
+
+Final folder should look like:
+
+```text
+assets/
+  targets/
+    arpongmarker.png
+    marker.mind
+```
+
+## Why the camera may not show
+
+Browser camera access usually will not work from `file://`.
+Run the project from localhost or HTTPS.
+
+Local test:
 
 ```bash
 python3 -m http.server 8000
@@ -29,26 +52,23 @@ Then open:
 http://localhost:8000
 ```
 
-## Next version
+For a phone test, host it on HTTPS using GitHub Pages, Netlify, Vercel, or another HTTPS host.
 
-V2 should connect real marker/image tracking using MindAR or AR.js.
+## Common camera fixes
 
-Suggested next steps:
+- Use Chrome on Android or Safari on iPhone.
+- Allow camera permission when prompted.
+- Do not open the HTML file directly from your file manager.
+- Use HTTPS for mobile testing.
+- Make sure no other app/browser tab is using the camera.
+- On iPhone, check Settings > Safari > Camera and allow access.
 
-1. Create the printed installation marker/poster.
-2. Convert the marker image into a MindAR `.mind` target file.
-3. Replace the simulated marker scan button with real camera tracking.
-4. Attach the Pong canvas to the tracked AR marker.
-5. Add sound effects and public installation instructions.
+## What was added
 
-
-## V1.1 Update
-
-Added:
-- CPU chat bubble phrases when the computer hits the ball.
-- CPU reaction phrases when the player scores, including “Ahhh you won!”.
-- Screen shake effect when the player loses a round/point.
-
-Edit phrase lists inside `app.js`:
-- `cpuHitPhrases`
-- `playerPointPhrases`
+- Real AR scan screen structure
+- MindAR integration
+- Correct marker folder
+- Marker preview
+- Missing `marker.mind` warning
+- Fallback gameplay test button
+- Existing Pong gameplay, NYC backgrounds, CPU chat bubbles, and screen shake

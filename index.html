@@ -2,30 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AR Pong NYC - V1 |. OdotNYC</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>AR Pong NYC - Real Marker V1.3 | RoboTechi</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- MindAR + A-Frame. These require internet unless downloaded locally. -->
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 </head>
 <body>
-  <main class="app-shell">
+  <main id="appShell" class="app-shell">
     <section id="scanScreen" class="screen active">
       <div class="poster-card">
         <div class="brand">RoboTechi</div>
-        <h1>RT-PONG</h1>
-        <p class="subtitle">Point your phone to begin a game of RT-PONG</p>
+        <h1>RT-PONG AR</h1>
+        <p class="subtitle">Allow camera access, then point your phone at the Queensbridge marker.</p>
 
-        <div class="marker-frame">
-          <div class="marker-corner tl"></div>
-          <div class="marker-corner tr"></div>
-          <div class="marker-corner bl"></div>
-          <div class="marker-corner br"></div>
-          <div class="scan-line"></div>
-          <span>MARKER SCAN AREA</span>
+        <div id="cameraStatus" class="status-box">Checking AR target file...</div>
+
+        <div class="marker-preview">
+          <img src="assets/targets/arpongmarker.png" alt="Queensbridge AR Pong marker" />
         </div>
 
-        <button id="scanBtn" class="primary-btn">Simulate Marker Scan</button>
-        <p class="small-note">V1 prototype | Powered by: RoboTechi Co.</p>
+        <div class="button-row">
+          <button id="startCameraBtn" class="primary-btn">Start Camera Scan</button>
+          <button id="simulateBtn" class="ghost-btn">Test Without AR</button>
+        </div>
+
+        <p class="small-note">Important: real marker tracking needs <strong>assets/targets/marker.mind</strong>.</p>
       </div>
+    </section>
+
+    <section id="arScreen" class="screen ar-screen">
+      <button id="exitArBtn" class="floating-btn">Exit Scan</button>
+      <div id="arMessage" class="ar-message">Point camera at the Queensbridge marker...</div>
+
+      <a-scene
+        id="arScene"
+        mindar-image="imageTargetSrc: assets/targets/marker.mind; autoStart: false; uiScanning: yes; uiLoading: yes; uiError: yes;"
+        color-space="sRGB"
+        renderer="colorManagement: true, physicallyCorrectLights"
+        vr-mode-ui="enabled: false"
+        device-orientation-permission-ui="enabled: false"
+        embedded>
+        <a-assets></a-assets>
+        <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+        <a-entity id="targetEntity" mindar-image-target="targetIndex: 0">
+          <a-plane position="0 0 0" width="1.45" height="0.85" color="#080612" opacity="0.92"></a-plane>
+          <a-text value="PRESS START" position="-0.45 0.1 0.02" width="2.2" color="#ffcc33"></a-text>
+          <a-text value="Tap screen to play RT-PONG" position="-0.52 -0.12 0.02" width="1.4" color="#ffffff"></a-text>
+        </a-entity>
+      </a-scene>
     </section>
 
     <section id="startScreen" class="screen">
@@ -38,15 +64,16 @@
     </section>
 
     <section id="gameScreen" class="screen">
-      <div class="game-wrap">
+      <div id="gameWrap" class="game-wrap street-bg-1">
+        <div class="scene-label" id="sceneLabel">Queensbridge Night Run</div>
+        <div id="cpuBubble" class="cpu-bubble hidden">You can't touch this!</div>
         <div class="topbar">
           <span>YOU: <strong id="playerScore">0</strong></span>
-          <span class="title-pill">RT-PONG v1</span>
+          <span class="title-pill">RT-PONG AR v1.3</span>
           <span>CPU: <strong id="cpuScore">0</strong></span>
         </div>
-        <div id="cpuBubble" class="cpu-bubble" aria-live="polite">You can't touch this!</div>
         <canvas id="pongCanvas" width="900" height="520"></canvas>
-        <p class="controls-note">Touch/drag up and down. First to 5 wins. Enjoy! - OdotNYC (Founder: RoboTechi)</p>
+        <p class="controls-note">Touch/drag up and down. First to 5 wins. Enjoy! - OdotNYC / RoboTechi</p>
       </div>
     </section>
 
